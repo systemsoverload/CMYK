@@ -24,13 +24,10 @@ function love.draw()
     love.graphics.setBackgroundColor( 0, 174, 239 )
     love.graphics.translate(player.x, player.y)
 
-    map:setDrawRange(0,0,love.graphics.getWidth(), love.graphics.getHeight())
+    map:autoDrawRange(player.x, player.y, 1)
     map:draw()
 end
 
 function love.update(dt)
     player.x = player.x - 8
-    -- player.y = player.y + 1
-    -- print(player.x)
-    -- local dx,dy = player.x - cam.x, player.y - cam.y
 end
