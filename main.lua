@@ -26,7 +26,9 @@ end
 function love.draw()
     love.graphics.setBackgroundColor( 0, 174, 239 )
 
-    map:autoDrawRange(player.x, player.y, 1)
+    love.graphics.translate( -player.x, -20)
+
+    map:autoDrawRange( -player.x, -20, 1)
     map:draw()
 
     player:draw()
