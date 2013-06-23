@@ -1,23 +1,36 @@
 io.stdout:setvbuf("no")
+-- Gets the loader
+loader = require("/vendor/AdvTiledLoader/Loader")
+Camera = require("/vendor/hump/camera")
+
+player = {}
+player.x = 0
+player.y = 0
 
 function love.load()
-	Map = require "map"
-	tilesetImage = love.graphics.newImage( "tileset1.png" )
-	tilesetImage:setFilter("nearest", "linear") -- this "linear filter" removes some artifacts if we were to scale the tiles
-	local tileSize = 50
-	local setWidth = 2
-	tiles = {}
-	for i=0,3 do
-		local row = math.floor(i/setWidth)
-		local col = i - row*setWidth
-		tiles[i+1] = love.graphics.newQuad(tileSize*row, tileSize*col, tileSize, tileSize, tilesetImage:getWidth(), tilesetImage:getHeight())
-	end
+    loader.path = "maps/"
+    map = loader.load("level1.tmx")
+
+    -- Close game on escape key
+    function love.keypressed(key)
+        if key == "escape" then
+            love.event.push("quit")
+        end
+    end
+
 end
 
 function love.draw()
-	love.graphics.print(Map, 100, 100)
-	love.graphics.drawq(tilesetImage, tiles[2], 0, 0)
+    love.graphics.setBackgroundColor( 0, 174, 239 )
+    love.graphics.translate(player.x, player.y)
+
+    map:setDrawRange(0,0,love.graphics.getWidth(), love.graphics.getHeight())
+    map:draw()
 end
 
 function love.update(dt)
+    player.x = player.x - 8
+    -- player.y = player.y + 1
+    -- print(player.x)
+    -- local dx,dy = player.x - cam.x, player.y - cam.y
 end

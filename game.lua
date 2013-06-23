@@ -1,3 +1,4 @@
+
 game = {}
 
 game.width = 640
