@@ -1,7 +1,8 @@
 io.stdout:setvbuf("no")
--- Gets the loader
-loader = require("/vendor/AdvTiledLoader/Loader")
-Camera = require("/vendor/hump/camera")
+
+loader = require("vendor.AdvTiledLoader.Loader")
+Camera = require("vendor.hump.camera")
+anim8 = require("vendor.anim8.anim8")
 Class = require("vendor.hump.Class")
 Player = require("player")
 
@@ -25,10 +26,10 @@ end
 function love.draw()
     love.graphics.setBackgroundColor( 0, 174, 239 )
 
-    player:draw()
-
     map:autoDrawRange(player.x, player.y, 1)
     map:draw()
+
+    player:draw()
 end
 
 function love.update(dt)
