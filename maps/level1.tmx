@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="50" height="12" tilewidth="50" tileheight="50">
  <tileset firstgid="1" name="tileset1" tilewidth="50" tileheight="50">
-  <image source="../tileset1.png" width="100" height="100"/>
+  <image source="../images/tileset1.png" width="100" height="100"/>
+  <tile id="0">
+   <properties>
+    <property name="color" value="cyan"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="color" value="magenta"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="color" value="yellow"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="color" value="black"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="50" height="12">
   <data encoding="base64" compression="zlib">
