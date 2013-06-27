@@ -1,7 +1,6 @@
 io.stdout:setvbuf("no")
 
 loader = require("vendor.AdvTiledLoader.Loader")
-Camera = require("vendor.hump.camera")
 anim8 = require("vendor.anim8.anim8")
 Class = require("vendor.hump.Class")
 Player = require("player")
@@ -9,23 +8,23 @@ Background = require("background")
 
 loader.path = "maps/"
 
-local map = loader.load("level1.tmx")
-local player = Player()
-local background = Background()
-
 function love.load()
-
+    map = loader.load("level1.tmx")
+    player = Player()
+    background = Background()
 
     -- Close game on escape key
     function love.keypressed(key)
         if key == "escape" then
             love.event.push("quit")
+        elseif key == "a" then
+            background:changeTo(BLACK)
         elseif key == "s" then
-            background:changeTo("cyan")
+            background:changeTo(CYAN)
         elseif key == "d" then
-            background:changeTo("magenta")
+            background:changeTo(MAGENTA)
         elseif key == "f" then
-            background:changeTo("yellow")
+            background:changeTo(YELLOW)
         end
     end
 
