@@ -1,0 +1,6 @@
+[submodule "vendor/HardonCollider"]
+	path = vendor/HardonCollider
+	url = git://github.com/vrld/HardonCollider.git
+[submodule "vendor/inspect"]
+	path = vendor/inspect
+	url = git://github.com/kikito/inspect.lua.git
