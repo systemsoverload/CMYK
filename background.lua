@@ -1,23 +1,32 @@
 local Background = Class{}
 
-CYAN, MAGENTA, YELLOW, BLACK = -- color values for background colors
-	{ red = 0, green = 255, blue = 255 },
-	{ red = 255, green = 0, blue = 255 },
-	{ red = 255, green = 255, blue = 0 },
-	{ red = 0, green = 0, blue = 0 }
+local colors = {
+	cyan    = { red = 0, green = 255, blue = 255 },
+	magenta = { red = 255, green = 0, blue = 255 },
+	yellow  = { red = 255, green = 255, blue = 0 },
+	black   = { red = 0, green = 0, blue = 0 }
+}
 
 local timeToResolve = 1/10 -- color switching time in seconds
 
+local initialColor = "cyan"
+
 function Background:init()
-	self.red = BLACK.red
-	self.green = BLACK.green
-	self.blue = BLACK.blue
-	self.target = BLACK
+	local colorData = colors[initialColor]
+
+	self.red = colorData.red
+	self.green = colorData.green
+	self.blue = colorData.blue
+	self.target = colorData
+
+	self.colorName = initialColor
+
     self.timer = 0
 end
 
 function Background:changeTo(color)
-	self.target = color
+	self.colorName = color
+	self.target = colors[color]
 	self.timer = timeToResolve
 end
 
@@ -51,6 +60,12 @@ end
 
 function Background:draw()
 	love.graphics.setBackgroundColor(self.red, self.green, self.blue)
+end
+
+function Background:getColorName()
+	if self.timer == 0 then
+		return self.colorName
+	end
 end
 
 return Background
