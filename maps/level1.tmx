@@ -23,9 +23,17 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="50" height="12">
+ <layer name="Level" width="50" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjALyAONAO4AAYMEixkR3V1AOmAfaATgAC4mYkD5CcuTYSYq7RsEooCYAACDOAL8=
+   eJxjYBgFo2AUjALyAONAO4AMwDTQDiADMA+0A3AAFhIxIX2E5MixkxR3jYJRQE0AAA7OALs=
+  </data>
+ </layer>
+ <layer name="Background1" width="50" height="12" opacity="0.33">
+  <properties>
+   <property name="atl_parallaxX" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBiegAmJzUgF83CZwYRDnBLATIQabPbiciMh84ixj1xASthjcwcx4UuN+B0Fo2AUjIJRMAqoCQDFzAAa
   </data>
  </layer>
 </map>
