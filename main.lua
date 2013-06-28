@@ -24,6 +24,8 @@ function stopCollide(dt, obj1, obj2)
         player:stopCollide(obj2)
     elseif (obj2 == player.rect) then
         player:stopCollide(obj1)
+    else
+        print("Non-player collision!")
     end
 end
 
@@ -38,7 +40,9 @@ function love.load()
     -- Create bounding boxes for each tile
     for x, y, val in map("Level"):iterate() do
         val.collides = false -- The state of currently colliding with the player is false initially
-        local rect = collider:addRectangle(x*map.tileWidth, y*map.tileHeight, map.tileWidth - 1, map.tileHeight - 1)
+        local rect = collider:addRectangle(x*map.tileWidth, y*map.tileHeight, map.tileWidth, map.tileHeight)
+        collider:addToGroup("level_geometry", rect) -- Level objects will not collide with each other if grouped
+        collider:setPassive(rect) -- Level objects will not search for collisions
         collider.tiles[rect] = val
     end
 
@@ -59,7 +63,7 @@ function love.load()
         elseif key == "f" then
             background:changeTo("yellow")
         -- Jump!
-        elseif key == " " then
+        elseif key == " " and player.velocity.y == 0 then
             player.velocity.y = 500
         end
     end
