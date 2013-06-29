@@ -3,12 +3,14 @@ io.stdout:setvbuf("no")
 loader = require("vendor.AdvTiledLoader.Loader")
 anim8 = require("vendor.anim8.anim8")
 Class = require("vendor.hump.Class")
-Player = require("player")
-Background = require("background")
 HC = require("vendor.HardonCollider")
 inspect = require("vendor.inspect.inspect") -- Useful for debugging
+Game = require("game")
+Player = require("player")
+Background = require("background")
 
 loader.path = "maps/"
+game = Game()
 
 -- Hardoncollider callbacks
 function onCollide(dt, obj1, obj2, dx, dy)
@@ -77,6 +79,7 @@ function love.load()
 end
 
 function love.draw()
+    -- local yTrans = math.max(-player.y + 250, 0)
     love.graphics.translate( -player.x + game.width / 2 , -player.y + game.height / 2 )
 
     background:draw()
@@ -99,5 +102,6 @@ function love.update(dt)
     background:update(delta)
     collider:update(delta)
     player:update(delta)
+    -- factor = factor + zoomAccel
     delta = 0
 end
