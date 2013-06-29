@@ -11,11 +11,11 @@ inspect = require("vendor.inspect.inspect") -- Useful for debugging
 loader.path = "maps/"
 
 -- Hardoncollider callbacks
-function onCollide(dt, obj1, obj2)
+function onCollide(dt, obj1, obj2, dx, dy)
     if (obj1 == player.rect) then
-        player:collide(obj2)
+        player:collide(obj2, dx, dy)
     elseif (obj2 == player.rect) then
-        player:collide(obj1)
+        player:collide(obj1, dx, dy)
     end
 end
 
@@ -63,8 +63,8 @@ function love.load()
         elseif key == "f" then
             background:changeTo("yellow")
         -- Jump!
-        elseif key == " " and player.velocity.y == 0 then
-            player.velocity.y = 500
+        elseif key == " " then
+            player:jump()
         end
     end
 
@@ -82,8 +82,16 @@ function love.draw()
     player:draw()
 end
 
+local delta = 0
+local FPS_LIMIT = 100
 function love.update(dt)
-    background:update(dt)
-    collider:update(dt)
-    player:update(dt)
+    delta = delta + dt
+    if (delta < 1/FPS_LIMIT) then
+        return
+    end
+    -- print(dt)
+    background:update(delta)
+    collider:update(delta)
+    player:update(delta)
+    delta = 0
 end
