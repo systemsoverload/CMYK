@@ -71,12 +71,13 @@ function love.load()
 end
 
 function love.draw()
-    love.graphics.translate( -player.x, -20)
+    local yTrans = math.max(-player.y + 250, 0)
+    love.graphics.translate( -player.x, yTrans)
 
     background:draw()
     player:draw()
 
-    map:autoDrawRange( -player.x, -20, 1)
+    map:autoDrawRange( -player.x, yTrans, factor)
     map:draw()
 
     player:draw()
@@ -93,5 +94,6 @@ function love.update(dt)
     background:update(delta)
     collider:update(delta)
     player:update(delta)
+    -- factor = factor + zoomAccel
     delta = 0
 end
