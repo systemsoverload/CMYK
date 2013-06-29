@@ -4,14 +4,19 @@ local GRAVITY = 1000
 local JUMP_VELOCITY = -500
 local SCROLL_VELOCITY = 500
 
-function Player:init()
-    self.x = 0
-    self.y = 200
-    self.image = love.graphics.newImage("/images/gorilla.png")
-    self.grid = anim8.newGrid( 28, 30, self.image:getWidth(), self.image:getHeight())
-    self.animation = anim8.newAnimation(self.grid('1-4',1), 0.1)
+function Player:init( x, y )
+    self.x = x
+    self.y = y
 
-    self.rect = collider:addRectangle(self.x, self.y, self.image:getWidth(), self.image:getHeight()*4)
+    --Tile size is 32x32 but we are drawing at 2x scale
+    self.height = 64
+    self.width = 64
+
+    self.image = love.graphics.newImage("/images/mario_.png")
+    self.grid = anim8.newGrid( 32, 32, self.image:getWidth(), self.image:getHeight())
+    self.animation = anim8.newAnimation(self.grid(3,1, 2,1, 1,1), 0.1)
+
+    self.rect = collider:addRectangle(self.x, self.y, 64, 64)
     self.velocity = { x = SCROLL_VELOCITY, y = 0 }
     self.acceleration = { x = 0, y = GRAVITY }
 end
@@ -63,7 +68,7 @@ function Player:update(dt)
 end
 
 function Player:draw()
-    self.animation:draw(self.image, self.x, self.y, 0, 4, 4)
+    self.animation:draw(self.image, self.x, self.y, 0, 2, 2)
     self.rect:draw('line')
 end
 

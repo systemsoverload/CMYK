@@ -31,12 +31,18 @@ end
 
 function love.load()
     -- Load the map
-    map = loader.load("level1.tmx")
+    map = loader.load("level2.tmx")
 
     -- Initialize the collider
     collider = HC(100, onCollide, stopCollide)
     collider.tiles = {} -- Maps a bounding box to the tile it represents
-    
+
+    for i, obj in pairs( map("Entities").objects ) do
+        if obj.type == 'Spawn' then
+            map.spawn = obj
+        end
+    end
+
     -- Create bounding boxes for each tile
     for x, y, val in map("Level"):iterate() do
         val.collides = false -- The state of currently colliding with the player is false initially
@@ -46,7 +52,7 @@ function love.load()
         collider.tiles[rect] = val
     end
 
-    player = Player()
+    player = Player( map.spawn.x, map.spawn.y )
     background = Background()
 
     function love.keypressed(key)
@@ -71,12 +77,12 @@ function love.load()
 end
 
 function love.draw()
-    love.graphics.translate( -player.x, -20)
+    love.graphics.translate( -player.x + game.width / 2 , -player.y + game.height / 2 )
 
     background:draw()
     player:draw()
 
-    map:autoDrawRange( -player.x, -20, 1)
+    map:autoDrawRange( -player.x + game.width / 2 , -player.y + game.height / 2, 1)
     map:draw()
 
     player:draw()

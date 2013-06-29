@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="250" height="50" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileset1_small" tilewidth="32" tileheight="32">
+  <image source="../images/tileset1_small.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="color" value="cyan"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="color" value="magenta"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="color" value="yellow"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="color" value="black"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Level" width="250" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt00EKwCAMBEAP/v/NvfQkUpeCRGEG9hqygbQGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABn6m92zZ0FWEv+5+vPJM/fm46qeyRdkn2TXjPV3W8MAHC/Bz1rA6k=
+  </data>
+ </layer>
+ <objectgroup name="Entities" width="250" height="50">
+  <object name="Spawn" type="Spawn" x="32" y="1411" width="94" height="92"/>
+ </objectgroup>
+</map>

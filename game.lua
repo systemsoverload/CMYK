@@ -1,8 +1,6 @@
+local Game = Class{}
 
-game = {}
-
-game.width = 640
-game.height = 480
-
-love.graphics.setMode( game.width, game.height, false, true, 8)
-love.mouse.setVisible(false)
+function Game:init()
+	self.width = 640
+	self.height = 480
+end
