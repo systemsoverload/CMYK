@@ -42,6 +42,12 @@ function love.load()
     for i, obj in pairs( map("Entities").objects ) do
         if obj.type == 'Spawn' then
             map.spawn = obj
+        elseif obj.type == 'Death' then
+            -- val.collides = false -- The state of currently colliding with the player is false initially
+            local rect = collider:addRectangle(obj.x, obj.y, obj.width, obj.height)
+            collider:addToGroup("level_geometry", rect) -- Level objects will not collide with each other if grouped
+            collider:setPassive(rect) -- Level objects will not search for collisions
+            collider.tiles[rect] = val
         end
     end
 
@@ -79,13 +85,29 @@ function love.load()
 end
 
 function love.draw()
-    -- local yTrans = math.max(-player.y + 250, 0)
-    love.graphics.translate( -player.x + game.width / 2 , -player.y + game.height / 2 )
+    -- print(inspect(tile))local yTrans = math.max(-player.y + 250, 0)
+    local yTrans
+
+    if player.dead then
+        yTrans = -player.diedAt.y + game.height / 2 + player.height
+    else
+        yTrans = (-player.y + game.height / 2 ) + player.height
+    end
+
+
+    love.graphics.translate(
+        (-player.x + game.width / 2) - player.width,
+        yTrans
+    )
 
     background:draw()
     player:draw()
 
-    map:autoDrawRange( -player.x + game.width / 2 , -player.y + game.height / 2, 1)
+    map:autoDrawRange(
+        (-player.x + game.width / 2) - player.width,
+        (-player.y + game.height / 2) + player.height,
+        1
+     )
     map:draw()
 
     player:draw()

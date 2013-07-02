@@ -24,28 +24,39 @@ end
 function Player:collide(box, dx, dy)
     local tile = collider.tiles[box]
     -- If not already colliding with player
-	if not tile.collides then
-        tile.collides = true
-        -- If the tile color matches the background, pretend they're not colliding
-        if tile.properties.color ~= background:getColorName() then
-            -- If it's the floor (black tile) stop the player accelerating through it
-            if tile.properties.color == 'black' and self.velocity.y > 0 then
-                self.velocity.y = 0
-                self.acceleration.y = 0
-                self.rect:move(0, dy)
-                self.y = self.y + dy
-            else
-                print("Collided with " .. tile.properties.color .. " tile!")
+    if tile then
+        if not tile.collides then
+            tile.collides = true
+            -- If the tile color matches the background, pretend they're not colliding
+            if tile.properties.color ~= background:getColorName() then
+                -- If it's the floor (black tile) stop the player accelerating through it
+                if tile.properties.color == 'black' and self.velocity.y > 0 then
+                    self.velocity.y = 0
+                    self.acceleration.y = 0
+                    self.rect:move(0, dy)
+                    self.y = self.y + dy
+                else
+                    print("Collided with " .. tile.properties.color .. " tile!")
+                end
             end
         end
+    else
+        self.dead = true
+        self.diedAt = {
+            x = self.x
+            ,y = self.y
+        }
+
     end
 end
 
 function Player:stopCollide(box)
     local tile = collider.tiles[box]
-    tile.collides = false
-    if tile.properties.color == 'black' then
-        self.acceleration.y = GRAVITY
+    if tile then
+        tile.collides = false
+        if tile.properties.color == 'black' then
+            self.acceleration.y = GRAVITY
+        end
     end
 end
 
@@ -56,15 +67,21 @@ function Player:jump()
 end
 
 function Player:update(dt)
-	-- self.x = self.x + 500 * dt
-	self.velocity.x = self.velocity.x + dt*self.acceleration.x
-	self.velocity.y = self.velocity.y + dt*self.acceleration.y
+    -- self.x = self.x + 500 * dt
+    self.velocity.y = self.velocity.y + dt*self.acceleration.y
+    self.velocity.x = self.velocity.x + dt*self.acceleration.x
 
-	self.x = self.x + self.velocity.x * dt
-	self.y = self.y + self.velocity.y * dt
-	self.rect:move(self.velocity.x*dt, self.velocity.y*dt)
+    if not self.dead then
+       self.animation:update(dt)
+       self.x = self.x + self.velocity.x * dt
+    else
+        local foo = self.grid(4,1)
+        self.animation = anim8.newAnimation(self.grid(4,1), 60)
+    end
 
-	self.animation:update(dt)
+    self.y = self.y + self.velocity.y * dt
+    self.rect:move(self.velocity.x*dt, self.velocity.y*dt)
+
 end
 
 function Player:draw()

@@ -28,10 +28,45 @@
  </tileset>
  <layer name="Level" width="250" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt00EKwCAMBEAP/v/NvfQkUpeCRGEG9hqygbQGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABn6m92zZ0FWEv+5+vPJM/fm46qeyRdkn2TXjPV3W8MAHC/Bz1rA6k=
+   eJzt00EKACAIBMAO/f/NfSCsvFQ4A3uVVbA1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACopQcB1qIfyv7UycxKyd7oxfuu+uz03dlr5vbuPwYA+N8Agv0DhQ==
   </data>
  </layer>
  <objectgroup name="Entities" width="250" height="50">
   <object name="Spawn" type="Spawn" x="32" y="1411" width="94" height="92"/>
+  <object name="Death" type="Death" x="351" y="1534" width="317" height="61">
+   <properties>
+    <property name="DeathType" value="Falling"/>
+   </properties>
+  </object>
+  <object name="Death" type="Death" x="2911" y="1537" width="95" height="59">
+   <properties>
+    <property name="DeathType" value="Falling"/>
+   </properties>
+  </object>
+  <object name="Death" type="Death" x="3362" y="1538" width="122" height="59">
+   <properties>
+    <property name="DeathType" value="Falling"/>
+   </properties>
+  </object>
+  <object name="Death" type="Death" x="4544" y="1539" width="95" height="59">
+   <properties>
+    <property name="DeathType" value="Falling"/>
+   </properties>
+  </object>
+  <object name="Death" type="Death" x="4802" y="1537" width="95" height="59">
+   <properties>
+    <property name="DeathType" value="Falling"/>
+   </properties>
+  </object>
+  <object name="Death" type="Death" x="5090" y="1539" width="122" height="59">
+   <properties>
+    <property name="DeathType" value="Falling"/>
+   </properties>
+  </object>
+  <object name="Death" type="Death" x="5377" y="1537" width="156" height="60">
+   <properties>
+    <property name="DeathType" value="Falling"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
