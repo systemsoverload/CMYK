@@ -16,7 +16,7 @@ function Player:init( x, y )
     self.grid = anim8.newGrid( 32, 32, self.image:getWidth(), self.image:getHeight())
     self.animation = anim8.newAnimation(self.grid(3,1, 2,1, 1,1), 0.1)
 
-    self.rect = collider:addRectangle(self.x, self.y, 64, 64)
+    self.bb = collider:addRectangle(self.x, self.y, 64, 64)
     self.velocity = { x = SCROLL_VELOCITY, y = 0 }
     self.acceleration = { x = 0, y = GRAVITY }
 end
@@ -33,7 +33,7 @@ function Player:collide(box, dx, dy)
                 if tile.properties.color == 'black' and self.velocity.y > 0 then
                     self.velocity.y = 0
                     self.acceleration.y = 0
-                    self.rect:move(0, dy)
+                    self.bb:move(0, dy)
                     self.y = self.y + dy
                 else
                     print("Collided with " .. tile.properties.color .. " tile!")
@@ -80,13 +80,13 @@ function Player:update(dt)
     end
 
     self.y = self.y + self.velocity.y * dt
-    self.rect:move(self.velocity.x*dt, self.velocity.y*dt)
+    self.bb:move(self.velocity.x*dt, self.velocity.y*dt)
 
 end
 
 function Player:draw()
     self.animation:draw(self.image, self.x, self.y, 0, 2, 2)
-    self.rect:draw('line')
+    self.bb:draw('line')
 end
 
 return Player

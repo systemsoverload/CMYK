@@ -14,17 +14,17 @@ game = Game()
 
 -- Hardoncollider callbacks
 function onCollide(dt, obj1, obj2, dx, dy)
-    if (obj1 == player.rect) then
+    if (obj1 == player.bb) then
         player:collide(obj2, dx, dy)
-    elseif (obj2 == player.rect) then
+    elseif (obj2 == player.bb) then
         player:collide(obj1, dx, dy)
     end
 end
 
 function stopCollide(dt, obj1, obj2)
-    if (obj1 == player.rect) then
+    if (obj1 == player.bb) then
         player:stopCollide(obj2)
-    elseif (obj2 == player.rect) then
+    elseif (obj2 == player.bb) then
         player:stopCollide(obj1)
     else
         print("Non-player collision!")
@@ -44,17 +44,16 @@ function love.load()
             map.spawn = obj
         elseif obj.type == 'Death' then
             -- val.collides = false -- The state of currently colliding with the player is false initially
-            local rect = collider:addRectangle(obj.x, obj.y, obj.width, obj.height)
-            collider:addToGroup("level_geometry", rect) -- Level objects will not collide with each other if grouped
-            collider:setPassive(rect) -- Level objects will not search for collisions
-            collider.tiles[rect] = val
+            local floorBB = collider:addRectangle(obj.x, obj.y, obj.width, obj.height)
+            collider:addToGroup("level_geometry", floorBB) -- Level objects will not collide with each other if grouped
+            collider:setPassive(floorBB) -- Level objects will not search for collisions
         end
     end
 
     -- Create bounding boxes for each tile
     for x, y, val in map("Level"):iterate() do
         val.collides = false -- The state of currently colliding with the player is false initially
-        local rect = collider:addRectangle(x*map.tileWidth, y*map.tileHeight, map.tileWidth, map.tileHeight)
+        local rect = collider:addRectangle(x * map.tileWidth, y * map.tileHeight, map.tileWidth, map.tileHeight)
         collider:addToGroup("level_geometry", rect) -- Level objects will not collide with each other if grouped
         collider:setPassive(rect) -- Level objects will not search for collisions
         collider.tiles[rect] = val
